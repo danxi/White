@@ -22,7 +22,7 @@ namespace TestStack.White.UIItems.MenuItems
             AutomationSearchCondition condition = AutomationSearchCondition.ByControlType(ControlType.MenuItem);
             var finder = new AutomationElementFinder(parent);
             finder = Retry.For(()=> PerformanceHackAsPopupMenuForWin32AppComesOnDesktop(finder, parent), CoreAppXmlConfiguration.Instance.BusyTimeout());
-            List<AutomationElement> children = finder.Descendants(condition);
+            List<AutomationElement> children = finder.Children(condition);
             foreach (AutomationElement child in children)
                 Add((Menu) Factory.Create(child, actionListener));
         }
