@@ -47,7 +47,17 @@ namespace TestStack.White.UIItems
                     if (pattern != null) pattern.SetValue(value);
                     else
                     {
-                        Logger.WarnFormat("BulkText failed, {0} does not support ValuePattern. Trying Text", ToString());
+                        //If value patttern not implemented, use keyboard to remove all text first
+                        var textPattern = Pattern(TextPattern.Pattern) as TextPattern;
+                        if (textPattern != null)
+                        {
+                            textPattern.DocumentRange.Select();
+                            keyboard.PressSpecialKey(WindowsAPI.KeyboardInput.SpecialKeys.BACKSPACE, this);
+                        }
+                        else
+                        {
+                            Logger.WarnFormat("BulkText failed, {0} does not support ValuePattern or TextPattern. Trying Text", ToString());
+                        }
                         Text = value;
                         actionListener.ActionPerformed(Action.WindowMessage);
                     }
