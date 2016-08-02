@@ -82,5 +82,42 @@ namespace TestStack.White.UIItems
             Select();
             keyboard.LeaveKey(KeyboardInput.SpecialKeys.CONTROL, actionListener);
         }
+
+        /// <summary>
+        /// deal with list row item with checkbox
+        /// </summary>
+        public bool Checked
+        {
+            get
+            {
+                var pattern = Pattern(TogglePattern.Pattern) as TogglePattern;
+                if (pattern != null)
+                {
+                    return new ToggleableItem(this).State == ToggleState.On ? true : false;
+                }
+                else
+                {
+                    throw new WhiteException(string.Format("AutomationElement for {0} doesn't support TogglePattern", ToString())); 
+                }
+
+            }
+
+            set
+            {
+                var pattern = Pattern(TogglePattern.Pattern) as TogglePattern;
+                if (pattern != null)
+                {
+                    ToggleState state = value ? ToggleState.On : ToggleState.Off;
+                    new ToggleableItem(this).State = state;
+                }
+                else
+                {
+                    throw new WhiteException(string.Format("AutomationElement for {0} doesn't support TogglePattern", ToString())); 
+                }
+            }
+
+        }
+
+        
     }
 }
