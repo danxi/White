@@ -32,11 +32,13 @@ namespace TestStack.White.UIItems.ListBoxItems
 
         public virtual void Select(bool shouldSelect)
         {
-            if (!shouldSelect) return;
+            //Yishun - 04/08/2016 - comment out. return will make no event be triggered if the default one is the selection.
+            //if (!shouldSelect) return;
 
             actionListener.ActionPerforming(this);
 
-            if (Bounds.IsEmpty)
+            //Yishun - 04/08/2016 - use selection pattern also if not visible
+            if (Bounds.IsEmpty || IsOffScreen)
             {
                 Logger.Debug("Bounds empty, falling back to automation patterns");
                 var selectionItemPattern =

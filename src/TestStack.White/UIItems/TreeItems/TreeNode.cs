@@ -142,5 +142,37 @@ namespace TestStack.White.UIItems.TreeItems
                 return value;
             }
         }
+
+        public bool Checked
+        {
+            get
+            {
+                var pattern = Pattern(TogglePattern.Pattern) as TogglePattern;
+                if (pattern != null)
+                {
+                    return new ToggleableItem(this).State == ToggleState.On ? true : false;
+                }
+                else
+                {
+                    throw new WhiteException(string.Format("AutomationElement for {0} doesn't support TogglePattern", ToString()));
+                }
+
+            }
+
+            set
+            {
+                var pattern = Pattern(TogglePattern.Pattern) as TogglePattern;
+                if (pattern != null)
+                {
+                    ToggleState state = value ? ToggleState.On : ToggleState.Off;
+                    new ToggleableItem(this).State = state;
+                }
+                else
+                {
+                    throw new WhiteException(string.Format("AutomationElement for {0} doesn't support TogglePattern", ToString()));
+                }
+            }
+
+        }
     }
 }
