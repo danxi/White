@@ -56,9 +56,10 @@ namespace TestStack.White.UIItems
             }
             else
             {
-                keyboard.Send(dateFormat.DisplayValue(dateTime.Value, 0).ToString(), actionListener);
+                //Yishun - 17/01/2016 - append 0 to the left of value for masked date picker which has initial blank value
+                keyboard.Send(dateFormat.DisplayValue(dateTime.Value, 0).ToString().PadLeft(2, '0'), actionListener);
                 keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.RIGHT, actionListener);
-                keyboard.Send(dateFormat.DisplayValue(dateTime.Value, 1).ToString(), actionListener);
+                keyboard.Send(dateFormat.DisplayValue(dateTime.Value, 1).ToString().PadLeft(2, '0'), actionListener);
                 keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.RIGHT, actionListener);
                 keyboard.Send(dateFormat.DisplayValue(dateTime.Value, 2).ToString(), actionListener);
                 keyboard.PressSpecialKey(KeyboardInput.SpecialKeys.RIGHT, actionListener);
